@@ -13,6 +13,8 @@ class Commands(ValueDictsBase):
     _commands = {
         "dotnet_restore": "dotnet restore {force} {debug} {path}",
         "dotnet_build": "dotnet build {force} {with_restore} --configuration={configuration} --framework={framework} "
-                        "--runtime={runtime} {debug} {output} {path}"
+                        "--runtime={runtime} {debug} {output} {path}",
+        "dotnet_publish": "dotnet build {force} {with_restore} --configuration={configuration} --framework={framework} "
+                        "--runtime={runtime} {self_contained} {debug} {output} {path}"
     }
 

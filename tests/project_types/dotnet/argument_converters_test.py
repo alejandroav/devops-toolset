@@ -1,21 +1,11 @@
-""" Unit-core for the dotnet/cli.py module"""
+""" Unit-core for the dotnet/argument_converters.py module"""
 
-from unittest.mock import patch, call
 import pytest
 
-import project_types.dotnet.cli as sut
-from core.CommandsCore import CommandsCore
-from core.LiteralsCore import LiteralsCore
-from project_types.dotnet.commands import Commands as DotnetCommands
-from project_types.dotnet.Literals import Literals as DotnetLiterals
-from core.app import App
-
-app: App = App()
-literals = LiteralsCore([DotnetLiterals])
-commands = CommandsCore([DotnetCommands])
-
+import project_types.dotnet.argument_converters as sut
 
 # region convert_debug_parameter()
+
 
 @pytest.mark.parametrize("value,expected", [(False, ""), (True, "--verbosity=diagnostic")])
 def test_convert_debug_parameter_returns_conversion_argument(value, expected):
@@ -56,10 +46,16 @@ def test_convert_with_restore_parameter_returns_conversion_argument(value, expec
 
 # endregion convert_with_restore_parameter()
 
-# region restore()
+# region convert_self_contained_parameter()
 
-# endregion restore()
 
-# region build()
+@pytest.mark.parametrize("value,expected", [(False, "--self-contained false"), (True, "--self-contained true")])
+def test_convert_self_contained_parameter_returns_conversion_argument(value, expected):
+    """ Given value argument, should test the two possibilities and return desired value """
+    # Arrange
+    # Act
+    result = sut.convert_self_contained_parameter(value)
+    # Assert
+    assert result == expected
 
-# endregion build()
+# endregion convert_self_contained_parameter()
