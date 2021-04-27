@@ -17,11 +17,11 @@ commands = CommandsCore([DotnetCommands])
 # region restore()
 
 @patch("tools.cli.call_subprocess")
-def test_restore_given_arguments_then_call_subprocess_with_dotnet_restore_command(call_subprocess_mock, pathsdata):
+def test_restore_given_arguments_then_call_subprocess_with_dotnet_restore_command(call_subprocess_mock, dotnetclidata):
     """ Given arguments, should call dotnet restore command with arguments converted """
     # Arrange
-    path = pathsdata.file_path
-    debug = "--verbosity=diagnostic"
+    path = dotnetclidata.file_path
+    debug = dotnetclidata.debug_argument
     force = "--force"
     expected_command = commands.get("dotnet_restore").format(
         force=force,
@@ -41,17 +41,17 @@ def test_restore_given_arguments_then_call_subprocess_with_dotnet_restore_comman
 
 
 @patch("tools.cli.call_subprocess")
-def test_restore_given_arguments_then_call_subprocess_with_dotnet_build_command(call_subprocess_mock, pathsdata):
+def test_restore_given_arguments_then_call_subprocess_with_dotnet_build_command(call_subprocess_mock, dotnetclidata):
     """ Given arguments, should call dotnet build command with arguments converted """
     # Arrange
-    path = pathsdata.file_path
-    debug = "--verbosity=diagnostic"
-    force = "--force"
-    output = "test/output"
-    runtime = "test-runtime"
-    with_restore = "--no-restore"
-    framework = "test-framework"
-    configuration = "Test"
+    path = dotnetclidata.file_path
+    debug = dotnetclidata.debug_argument
+    force = dotnetclidata.force_argument
+    output = dotnetclidata.output_argument
+    runtime = dotnetclidata.runtime_argument
+    with_restore = dotnetclidata.with_restore_argument
+    framework = dotnetclidata.framework_argument
+    configuration = dotnetclidata.configuration_argument
 
     expected_command = commands.get("dotnet_build").format(
         force=force,
@@ -78,18 +78,18 @@ def test_restore_given_arguments_then_call_subprocess_with_dotnet_build_command(
 
 
 @patch("tools.cli.call_subprocess")
-def test_restore_given_arguments_then_call_subprocess_with_dotnet_publish_command(call_subprocess_mock, pathsdata):
+def test_restore_given_arguments_then_call_subprocess_with_dotnet_publish_command(call_subprocess_mock, dotnetclidata):
     """ Given arguments, should call dotnet publish command with arguments converted """
     # Arrange
-    path = pathsdata.file_path
-    self_contained = "--self-contained false"
-    debug = "--verbosity=diagnostic"
-    force = "--force"
-    output = "test/output"
-    runtime = "test-runtime"
-    with_restore = "--no-restore"
-    framework = "test-framework"
-    configuration = "Test"
+    path = dotnetclidata.file_path
+    self_contained = dotnetclidata.self_contained_argument
+    debug = dotnetclidata.debug_argument
+    force = dotnetclidata.force_argument
+    output = dotnetclidata.output_argument
+    runtime = dotnetclidata.runtime_argument
+    with_restore = dotnetclidata.with_restore_argument
+    framework = dotnetclidata.framework_argument
+    configuration = dotnetclidata.configuration_argument
 
     expected_command = commands.get("dotnet_publish").format(
         force=force,
