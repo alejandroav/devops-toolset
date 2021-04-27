@@ -9,7 +9,7 @@ logging.Formatter("%(asctime)s %(levelname)-8s %(module)-15s %(message)s")
 logger = logging.getLogger(__name__)
 
 
-def main(devops_platform: str, language: str):
+def main(devops_platform: str, language: str, project: str):
     """ Sets the configuration inside settings.json """
     settings_path = pkg_resources.resource_filename("core", "settings.json")
 
@@ -19,6 +19,7 @@ def main(devops_platform: str, language: str):
 
     settings['platform'] = devops_platform
     settings['language'] = language
+    settings['project'] = project
 
     with open(settings_path, 'w') as settings_file:
         logger.info(f"Setting 'devops_platform' -> {devops_platform}")
@@ -34,5 +35,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--devops-platform", default="azuredevops")
     parser.add_argument("--language", default="en")
+    parser.add_argument("--project", default="wordpress")
     args = parser.parse_args()
-    main(args.devops_platform, args.language)
+    main(args.devops_platform, args.language, args.project)

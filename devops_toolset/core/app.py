@@ -37,6 +37,12 @@ class App(object):
         spec.loader.exec_module(platform_specific)
         return platform_specific
 
+    def load_project_specific(self, name: str):
+        module_path = pathlib.Path.joinpath(self.settings.project_specific_path, f"{name}.py")
+        spec = importlib.util.spec_from_file_location(name, module_path)
+        project_specific = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(project_specific)
+        return project_specific
 
 if __name__ == "__main__":
     help(__name__)

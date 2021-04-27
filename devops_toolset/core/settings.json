@@ -1,4 +1,5 @@
 {
     "language": "en",
-    "platform": "azuredevops"
+    "platform": "azuredevops",
+    "project": "dotnet"
 }

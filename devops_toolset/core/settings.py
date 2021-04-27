@@ -10,6 +10,7 @@ class Settings(object):
     """Application settings"""
 
     _DEVOPS: str = "devops_platforms"
+    _PROJECT_TYPES: str = "project_types"
     _LOCALES: str = "locales"
     _CORE: str = "core"
     _CONFIG_SETTINGS_FILE_NAME: str = "logging-config.json"
@@ -20,19 +21,23 @@ class Settings(object):
     root_path: pathlib.Path = pathlib.Path(_CURRENT_PATH).parent.absolute()
     project_xml_path = root_path.parent.absolute()
     devops_path: pathlib.Path = pathlib.Path.joinpath(root_path, _DEVOPS).absolute()
+    projects_path: pathlib.Path = pathlib.Path.joinpath(root_path, _PROJECT_TYPES).absolute()
     locales_path: pathlib.Path = pathlib.Path.joinpath(root_path, _LOCALES).absolute()
     log_config_file_path: pathlib.Path = pathlib.Path(pkg_resources.resource_filename
                                                       (__name__, _CONFIG_SETTINGS_FILE_NAME))
     settings_path: pathlib.Path = pathlib.Path(pkg_resources.resource_filename(__name__, _SETTINGS_FILE_NAME))
     language: str = "en"
     platform: str = "azuredevops"
+    project: str = "wordpress"
     platform_specific_path: pathlib.Path = pathlib.Path.joinpath(devops_path, platform).absolute()
+    project_specific_path: pathlib.Path = pathlib.Path.joinpath(projects_path, project).absolute()
 
     def __init__(self):
         """Loads settings"""
 
         self.load(self.settings_path.as_posix())
         self.platform_specific_path = pathlib.Path.joinpath(self.devops_path, self.platform).absolute()
+        self.project_specific_path = pathlib.Path.joinpath(self.projects_path, self.project).absolute()
 
     @staticmethod
     def read_settings_from_file(path: str):
@@ -55,3 +60,12 @@ class Settings(object):
         # Add your setting mappings here
         self.language = settings["language"]
         self.platform = settings["platform"]
+        self.project = settings["project"]
+
+    def get_project_specific_settings(self) -> dict:
+        """ Get settings from the project specific path """
+
+        project_specific_settings_file_path = pathlib.Path.joinpath(pathlib.Path(self.project_specific_path),
+                                                                    self._SETTINGS_FILE_NAME)
+        return self.read_settings_from_file(project_specific_settings_file_path)
+
