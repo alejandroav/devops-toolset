@@ -24,6 +24,7 @@ def main(devops_platform: str, language: str, project: str):
     with open(settings_path, 'w') as settings_file:
         logger.info(f"Setting 'devops_platform' -> {devops_platform}")
         logger.info(f"Setting 'language' -> {language}")
+        logger.info(f"Setting 'project' -> {project}")
         json.dump(settings, settings_file)
         logger.info("Settings successfully saved")
 
