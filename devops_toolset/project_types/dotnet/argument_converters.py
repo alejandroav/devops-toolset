@@ -46,5 +46,17 @@ def convert_with_restore_parameter(value: bool) -> str:
     return ""
 
 
+def convert_argument_set(**kwargs) -> str:
+    """ Convert all kwargs passed to the dotnet cli expected format """
+    str_arguments : str = ""
+    for key, value in kwargs.items():
+        arg: str = f"--{key} {value}"
+        str_arguments = str_arguments + arg
+
+    return str_arguments
+
+
+
+
 if __name__ == "__main__":
     help(__name__)

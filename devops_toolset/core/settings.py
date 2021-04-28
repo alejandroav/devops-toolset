@@ -62,10 +62,3 @@ class Settings(object):
         self.platform = settings["platform"]
         self.project = settings["project"]
 
-    def get_project_specific_settings(self) -> dict:
-        """ Get settings from the project specific path """
-
-        project_specific_settings_file_path = pathlib.Path.joinpath(pathlib.Path(self.project_specific_path),
-                                                                    self._SETTINGS_FILE_NAME)
-        return self.read_settings_from_file(project_specific_settings_file_path)
-

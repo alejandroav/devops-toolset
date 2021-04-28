@@ -7,6 +7,7 @@ from devops_platforms.aws.Literals import Literals as AwsLiterals
 from project_types.linux.commands import Commands as LinuxCommands
 import tools.cli as cli
 import logging
+import os
 
 app: App = App()
 literals = LiteralsCore([AwsLiterals])
@@ -21,8 +22,9 @@ def create_environment_variables(key_value_pairs: dict):
     """
 
     for key, value in key_value_pairs.items():
-        logging.info(literals.get("platform_created_ev").format(key=key, value=value))
-        cli.call_subprocess(linux_commands.get("create_env_variable").format(variable_name=key, variable_value=value))
+        name = key.upper()
+        logging.info(literals.get("platform_created_ev").format(key=name, value=value))
+        os.environ[name] = value
 
 
 if __name__ == "__main__":

@@ -11,10 +11,8 @@ class Commands(ValueDictsBase):
 
     # Add your dotnet commands dictionaries here
     _commands = {
-        "dotnet_restore": "dotnet restore {force} {debug} {path}",
-        "dotnet_build": "dotnet build {force} {with_restore} --configuration={configuration} --framework={framework} "
-                        "--runtime={runtime} {debug} {output} {path}",
-        "dotnet_publish": "dotnet build {force} {with_restore} --configuration={configuration} --framework={framework} "
-                        "--runtime={runtime} {self_contained} {debug} {output} {path}"
+        "dotnet_restore": "dotnet restore {args} {path}",
+        "dotnet_build": "dotnet build {args} {path}",
+        "dotnet_publish": "dotnet publish {args} {path}"
     }
 
