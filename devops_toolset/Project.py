@@ -30,13 +30,13 @@ class Project(object):
         """ Calls the project_type.cli's test method with desired settings """
         return self.cli.test(self.project_path, **kwargs)
 
-    def test(self, **kwargs):
+    def pack(self, **kwargs):
         """ Calls the project_type.cli's test method with desired settings """
         return self.cli.pack(self.project_path, **kwargs)
 
-    def test(self, **kwargs):
+    def merge(self, **kwargs):
         """ Calls the project_type.cli's merge method with desired settings """
-        return self.cli.pack(self.project_path, **kwargs)
+        return self.cli.merge(self.project_path, **kwargs)
 
     def deploy(self, **kwargs):
         """ Calls the project_type.cli's deploy method with desired settings """

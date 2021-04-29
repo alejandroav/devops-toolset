@@ -1,7 +1,8 @@
 """Unit core for the environment file"""
+import os
 
 from core.CommandsCore import CommandsCore
-from unittest.mock import patch, call
+from unittest.mock import patch
 from project_types.linux.commands import Commands as LinuxCommands
 import devops_platforms.aws.environment as sut
 
@@ -20,16 +21,12 @@ def test_create_environment_variables_given_dict_when_not_empty_calls_to_create_
 
     # Arrange
     environment_variables = platformdata.environment_variables_dict
-    expected_command_1 = linux_commands.get("create_env_variable").\
-        format(variable_name="env_var_1", variable_value="value1")
-    expected_command_2 = linux_commands.get("create_env_variable").\
-        format(variable_name="env_var_2", variable_value="value2")
 
     # Act
-    sut.create_environment_variables(environment_variables)
-    calls = [call(expected_command_1), call(expected_command_2)]
+    with patch.dict(os.environ, {}, clear=True):
+        sut.create_environment_variables(environment_variables)
 
-    # Assert
-    call_subprocess_mock.assert_has_calls(calls)
+        # Assert
+        assert "env_var_1" in os.environ and "env_var_2" in os.environ
 
 # endregion

@@ -15,6 +15,8 @@ class DotnetCliData:
     framework_argument = "test-framework"
     configuration_argument = "Test"
     self_contained_argument = "--self-contained false"
+    args = {"force": True, "output": output_argument}
+    converted_args = f"--force --output '{output_argument}'"
 
 
 @pytest.fixture

@@ -50,8 +50,15 @@ def convert_argument_set(**kwargs) -> str:
     """ Convert all kwargs passed to the dotnet cli expected format """
     str_arguments : str = ""
     for key, value in kwargs.items():
-        arg: str = f"--{key} {value}"
-        str_arguments = str_arguments + arg
+        if isinstance(value, bool):
+            if value:
+                arg = f"--{key}"
+            else:
+                arg = ""
+        else:
+            arg = f"--{key} '{value}'"
+
+        str_arguments = ''.join([str_arguments, arg]) if str_arguments == "" else ' '.join([str_arguments, arg])
 
     return str_arguments
 
