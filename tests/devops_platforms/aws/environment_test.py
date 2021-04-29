@@ -27,6 +27,6 @@ def test_create_environment_variables_given_dict_when_not_empty_calls_to_create_
         sut.create_environment_variables(environment_variables)
 
         # Assert
-        assert "env_var_1" in os.environ and "env_var_2" in os.environ
+        assert "ENV_VAR_1" in os.environ and "ENV_VAR_2" in os.environ
 
 # endregion
